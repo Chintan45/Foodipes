@@ -1,0 +1,272 @@
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+@font-face {
+  font-family: helvetica;
+  src: url(../../../assets/fonts/helvetica.ttf);
+}
+
+@font-face {
+  font-family: helvetica-round;
+  src: url(../../../assets/fonts/helvetica-rounded.otf);
+}
+
+.recipes-outer-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  margin-top: 25px;
+}
+
+.recipes-outer-container .filter-container,
+.recipes-outer-container .listing-container {
+  border: none;
+}
+
+.recipes-outer-container .filter-container {
+  width: 18%;
+  height: 100%;
+}
+
+.recipes-outer-container .listing-container {
+  width: 77%;
+}
+
+.recipes-outer-container .listing-container .search-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.recipes-outer-container .listing-container .search-bar .search,
+.recipes-outer-container .listing-container .search-bar .search-box {
+  background-color: #f4f4f4;
+}
+
+.recipes-outer-container .listing-container .search-bar .search {
+  width: 14px;
+  height: 16px;
+  padding: 12px 12px 12px 20px;
+  color: #9c9c9c;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  cursor: pointer;
+  border-right: 1px solid #ddd;
+}
+
+.recipes-outer-container .listing-container .search-bar .search-box {
+  width: 50%;
+  padding: 12px 8px;
+  font-size: 14px;
+  color: #a0a0a0;
+  outline: none;
+  border: none;
+  border-radius: 12px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.recipes-outer-container .listing-container .search-bar .search-box::-webkit-input-placeholder {
+  color: #bfbfbf;
+  font-size: 12px;
+}
+
+.recipes-outer-container .listing-container .search-bar .search-box:-ms-input-placeholder {
+  color: #bfbfbf;
+  font-size: 12px;
+}
+
+.recipes-outer-container .listing-container .search-bar .search-box::-ms-input-placeholder {
+  color: #bfbfbf;
+  font-size: 12px;
+}
+
+.recipes-outer-container .listing-container .search-bar .search-box::placeholder {
+  color: #bfbfbf;
+  font-size: 12px;
+}
+
+.recipes-outer-container .listing-container .search-bar .search-box,
+.recipes-outer-container .listing-container .search-bar .search-box::-webkit-input-placeholder {
+  font-family: Helvetica Rounded;
+  letter-spacing: 0.6px;
+}
+
+.recipes-outer-container .listing-container .search-bar .search-box,
+.recipes-outer-container .listing-container .search-bar .search-box:-ms-input-placeholder {
+  font-family: Helvetica Rounded;
+  letter-spacing: 0.6px;
+}
+
+.recipes-outer-container .listing-container .search-bar .search-box,
+.recipes-outer-container .listing-container .search-bar .search-box::-ms-input-placeholder {
+  font-family: Helvetica Rounded;
+  letter-spacing: 0.6px;
+}
+
+.recipes-outer-container .listing-container .search-bar .search-box,
+.recipes-outer-container .listing-container .search-bar .search-box::placeholder {
+  font-family: Helvetica Rounded;
+  letter-spacing: 0.6px;
+}
+
+.recipes-outer-container .listing-container .search-bar .search-box:hover,
+.recipes-outer-container .listing-container .search-bar .search-box:active,
+.recipes-outer-container .listing-container .search-bar .search-box:focus {
+  -webkit-box-shadow: inset 0 2px 5px #ddd;
+          box-shadow: inset 0 2px 5px #ddd;
+}
+
+.recipes-outer-container .listing-container .list-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 20px;
+}
+
+.recipes-outer-container .listing-container .list-container .recipe-card {
+  margin-right: 0;
+  cursor: pointer;
+}
+
+.recipes-outer-container .listing-container .list-container .recipe-card:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  border-radius: 8px;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.recipes-outer-container .listing-container .list-container .recipe-card:hover .recipe-thumbnail {
+  -webkit-box-shadow: 1px 1px 4px #aaa;
+          box-shadow: 1px 1px 4px #aaa;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.recipes-outer-container .listing-container .list-container .recipe-thumbnail {
+  width: 280px;
+  height: 140px;
+  margin-top: 20px;
+  border-radius: 20px;
+}
+
+.recipes-outer-container .listing-container .list-container h3,
+.recipes-outer-container .listing-container .list-container .p-rate {
+  color: #534949;
+  font-family: helvetica-round;
+}
+
+.recipes-outer-container .listing-container .list-container h3 {
+  margin: 5px 0;
+}
+
+.recipes-outer-container .listing-container .list-container .p-rate {
+  width: 40%;
+  float: left;
+}
+
+.recipes-outer-container .listing-container .list-container .p-auth {
+  color: #bbb;
+  width: auto;
+  float: right;
+}
+
+.recipes-outer-container .listing-container .list-container .p-rate,
+.recipes-outer-container .listing-container .list-container .p-auth {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 720px) {
+  .recipes-outer-container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .recipes-outer-container .filter-container {
+    display: none;
+  }
+  .recipes-outer-container .listing-container {
+    width: 100%;
+  }
+  .recipes-outer-container .listing-container .search-bar {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    font-size: 16px;
+  }
+  .recipes-outer-container .listing-container .search-bar .search-box {
+    width: 80%;
+    height: 30px;
+    padding-left: 20px;
+    border-radius: 0;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+  }
+  .recipes-outer-container .listing-container .search-bar .search {
+    width: 24px;
+    height: 30px;
+    padding-right: 18px;
+    border-radius: 0;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
+  .recipes-outer-container .listing-container .search-bar .search-box,
+  .recipes-outer-container .listing-container .search-bar .search-box::-webkit-input-placeholder {
+    font-size: 16px;
+    font-family: helvetica-round;
+  }
+  .recipes-outer-container .listing-container .search-bar .search-box,
+  .recipes-outer-container .listing-container .search-bar .search-box:-ms-input-placeholder {
+    font-size: 16px;
+    font-family: helvetica-round;
+  }
+  .recipes-outer-container .listing-container .search-bar .search-box,
+  .recipes-outer-container .listing-container .search-bar .search-box::-ms-input-placeholder {
+    font-size: 16px;
+    font-family: helvetica-round;
+  }
+  .recipes-outer-container .listing-container .search-bar .search-box,
+  .recipes-outer-container .listing-container .search-bar .search-box::placeholder {
+    font-size: 16px;
+    font-family: helvetica-round;
+  }
+  .recipes-outer-container .listing-container .list-container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .recipes-outer-container .listing-container .list-container .recipe-thumbnail {
+    width: 100%;
+    height: auto;
+  }
+}
+/*# sourceMappingURL=recipes.css.map */
