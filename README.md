@@ -9,7 +9,7 @@ Download this project at your PC by excuthing below command on command prompt.
   
 `git clone https://github.com/ChintanDobariya/Foodipes.git`
 
-Download dependencies in both the derectories(Client and Server) by excuting below command.
+Download dependencies in both the derectories(Client and Server) by executing below command.
 
 `npm install`
 
