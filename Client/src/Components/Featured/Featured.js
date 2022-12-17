@@ -14,7 +14,7 @@ const Featured = () => {
             {/* <div style={{ marginBottom: "20px", textAlign: "center", fontSize: "42px" }}> Featured Recipes </div> */}
 
             <Card className="f_card" data-aos="fade-up" data-aos-once="true" data-aos-duration="600">
-                <Grid container>
+                <Grid container columnSpacing={2}>
                     <Grid item xs={12} md={5} style={{}}>
                         <YouTube videoId='HfPYf0hc9dI' className='player' />
                     </Grid>
@@ -36,7 +36,7 @@ const Featured = () => {
             </Card>
 
             <Card className="f_card" data-aos="fade-up" data-aos-once="true" data-aos-duration="1000">
-                <Grid container>
+                <Grid container columnSpacing={2}>
                     <Grid item xs={12} md={7}>
                         <Typography variant='h5'>Honey Chilli Potatoes</Typography>
                         <Typography varient='subtitle1' mt={1}>
@@ -58,7 +58,7 @@ const Featured = () => {
             </Card>
 
             <Card className="f_card">
-                <Grid container>
+                <Grid container columnSpacing={2}>
                     <Grid item xs={12} md={5} style={{}}>
                         <YouTube videoId='2DirEw0Z4cg' className='player' />
                     </Grid>
