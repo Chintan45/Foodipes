@@ -10,7 +10,8 @@ const RecipeList = ({ filterType }) => {
     const [CardData, setCardData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const baseURL = "http://localhost:5000/recipes_data";
+    const API = process.env.REACT_APP_API;
+    const baseURL = `${API}/recipes_data`;
 
     const filterData = (data, filterType) => {
         if (filterType === "all") {
@@ -19,42 +20,27 @@ const RecipeList = ({ filterType }) => {
         return data.filter(li => li.keywords.includes(filterType));
     }
 
-    const getData = async () => {
-        try {
-            await axios
-                .get(baseURL)
-                .then(res => {
-                    // console.log(res.data);
-                    let fData = filterData(res.data, filterType)
-                    setCardData(fData);
-                })
-                .finally(() => {
-                    setLoading(false);
-                })
-        }
-        catch (e) {
-            console.log(e)
-        }
-    }
-
+    
     useEffect(() => {
+        const getData = async () => {
+            try {
+                await axios
+                    .get(baseURL)
+                    .then(res => {
+                        // console.log(res.data);
+                        let fData = filterData(res.data, filterType)
+                        setCardData(fData);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    })
+            }
+            catch (e) {
+                console.log(e)
+            }
+        }
         getData();
-    }, [filterType]);
-
-
-    // const createPost = () => {
-    //     axios
-    //         .post(baseURL, {
-    //             "title": "Icecream",
-    //             "url": "cupcake",
-    //             "rating": "10.1(303)",
-    //             "author": "by Rao",
-    //             "keywords": ["Icecream"]
-    //         })
-    //         .then(
-    //             getData()
-    //         )
-    // }
+    }, [baseURL, filterType]);
 
 
     if (loading) {

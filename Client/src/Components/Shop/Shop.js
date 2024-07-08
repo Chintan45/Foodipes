@@ -54,7 +54,8 @@ const CardSContainer = () => {
     const [loading, setLoading] = useState(true);
     const [bookList, setBookList] = useState([])
 
-    const baseURL = "http://localhost:5000/books";
+    const API = process.env.REACT_APP_API
+    const baseURL = `${API}/books`;
 
     useEffect(() => {
         const getBooks = async () => {
@@ -72,7 +73,7 @@ const CardSContainer = () => {
             }
         }
         getBooks();
-    }, []);
+    }, [baseURL]);
 
     if (loading) {
         return (
@@ -113,7 +114,7 @@ const BookCard = ({ url, alt, title, price, link }) => {
                     <Typography color="textPrimary" className='typography'>{title}</Typography>
                     <Grid container spacing={2}>
                         <Grid item xs={8}>
-                            <Typography color="textSecondary" className='typography'>{price}</Typography>
+                            <Typography color="textSecondary" className='typography'>${price}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Button variant='outlined' onClick={() => handleLink(link)}>
