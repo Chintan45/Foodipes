@@ -1,5 +1,8 @@
 const express = require("express");
+const mongoose = require('mongoose')
 const port = process.env.PORT || 5000;
+const env = require('dotenv');
+env.config();
 
 const receipeRoutes = require("./routes/recipeRoutes");
 const postRoutes = require("./routes/postRoutes");
@@ -23,6 +26,11 @@ app.get("/", (req, res) => {
 app.use("/api/books", bookRoutes);
 app.use("/api/recipes_data", receipeRoutes);
 app.use("/api/posts", postRoutes);
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log('Connected To Database!'))
+  .catch((err) => console.error(err.message));
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);

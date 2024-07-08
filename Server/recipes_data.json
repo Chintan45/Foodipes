@@ -3,7 +3,7 @@
     "id": 1,
     "title": "Pesto Pasta with Tomato...",
     "url": "pasta",
-    "rating": "4.1(33)",
+    "rating": "4.1",
     "author": "by Jian Yang",
     "description":"",
     "keywords": [
@@ -16,7 +16,7 @@
     "id": 2,
     "title": "Peporino-Romanio Pizza",
     "url": "pizza",
-    "rating": "4.6(19)",
+    "rating": "4.6",
     "author": "By Gavin Belson",
     "description":"",
     "keywords": [
@@ -30,7 +30,7 @@
     "id": 3,
     "title": "Healthy Funfetti Cupcake",
     "url": "cupcake",
-    "rating": "4.2(24)",
+    "rating": "4.2",
     "author": "By Richard Hendricks",
     "description":"",
     "keywords": [
@@ -43,7 +43,7 @@
     "id": 4,
     "title": "Healthy Funfetti Cupcake",
     "url": "cupcake",
-    "rating": "4.2(24)",
+    "rating": "4.2",
     "author": "By Peter Gregory",
     "description":"",
     "keywords": [
@@ -58,7 +58,7 @@
     "id": 5,
     "title": "Pesto Pasta with Tomato...",
     "url": "pasta",
-    "rating": "4.1(33)",
+    "rating": "4.1",
     "author": "by Erlich Bachman",
     "description":"",
     "keywords": [
@@ -73,7 +73,7 @@
     "id": 6,
     "title": "Peporino-Romanio Pizza",
     "url": "pizza",
-    "rating": "4.6(19)",
+    "rating": "4.6",
     "author": "By Richard Hendricks",
     "description":"",
     "keywords": [
@@ -86,7 +86,7 @@
     "id": 7,
     "title": "Peporino-Romanio Pizza",
     "url": "pizza",
-    "rating": "4.6(19)",
+    "rating": "4.6",
     "author": "By Dinesh",
     "description":"",
     "keywords": [
@@ -99,7 +99,7 @@
     "id": 8,
     "title": "Healthy Funfetti Cupcake",
     "url": "cupcake",
-    "rating": "4.2(24)",
+    "rating": "4.2",
     "author": "By Gilfoyle",
     "description":"",
     "keywords": [
@@ -112,7 +112,7 @@
     "id": 9,
     "title": "Pesto Pasta with Tomato...",
     "url": "pasta",
-    "rating": "4.1(33)",
+    "rating": "4.1",
     "author": "by Monica",
     "description":"",
     "keywords": [
