@@ -7,6 +7,7 @@ env.config();
 const receipeRoutes = require("./routes/recipeRoutes");
 const postRoutes = require("./routes/postRoutes");
 const bookRoutes = require("./routes/bookRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 app.use((req, res, next) => {
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
 app.use("/api/books", bookRoutes);
 app.use("/api/recipes_data", receipeRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/user", userRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
