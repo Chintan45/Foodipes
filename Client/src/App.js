@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect  } from 'react-router-dom';
 
 import Navbar from './Components/NavBar/Navbar';
 import Home from './Components/Home/Home';
@@ -11,11 +11,12 @@ import Signup from './Components/LoginSignup/Signup';
 import Featured from './Components/Featured/Featured';
 import Pasta from './Components/Recipes/Post/Pasta';
 import Pizza from './Components/Recipes/Post/Pizza';
-import Post from './Components/Recipes/Post/Post';
 import Cake from './Components/Recipes/Post/Cake';
+import { useAuthContext } from './hooks/useAuthContext';
 
 function App() {
   const [active, setActive] = useState('');
+  const { user } = useAuthContext()
 
   useEffect(() => {
     let CurrentURL = window.location.href;
@@ -38,7 +39,6 @@ function App() {
       <Router > <Redirect to="/error" /> </Router >
       setActive('404: Page not Found...')
     }
-    //console.log(active)
   }, [active])
 
 
@@ -53,22 +53,26 @@ function App() {
             <Home setActive={setActive} />
           </Route>
           <Route path='/recipes' exact component={Recipes} />
-          <Route path='/recipes/pasta' exact component={Pasta} />
-          <Route path='/recipes/pizza' exact component={Pizza} />
-          <Route path='/recipes/cupcake' exact component={Cake} />
+          <Route path='/recipes/pasta' exact >
+            {user ? <Pasta />: <Redirect to={{ pathname: '/login', state: { redirectTo: '/recipes/pasta' }}} /> }
+          </Route>
+          <Route path='/recipes/pizza' exact >
+            {user ? <Pizza />: <Redirect to={{ pathname: '/login', state: { redirectTo: '/recipes/pizza' }}} /> }
+          </Route>
+          <Route path='/recipes/cupcake' exact >
+            {user ? <Cake />: <Redirect to={{ pathname: '/login', state: { redirectTo: '/recipes/cupcake' }}} /> }
+          </Route>
           <Route path='/shop' component={Shop} />
           <Route path='/featured' exact component={Featured} />
-          <Route path='/hotline' exact component={Pasta} />
+          <Route path='/hotline' exact>
+            {user ? <Pasta />: <Redirect to={{ pathname: '/login', state: { redirectTo: '/hotline' }}} /> }
+          </Route>
           <Route path='/login' exact>
-            <Login setActive={setActive} />
+            <Login setActive={setActive} />  
           </Route>
           <Route path='/signup' exact>
-            <Signup setActive={setActive} />
+            {!user ? <Signup setActive={setActive} /> : <Redirect to="/" /> }
           </Route>
-          <Route path='/post'>
-            <Post recipe_name="pizza" />
-          </Route>
-
 
           <Route path='/error'>
             <h1>404🤦‍♂️🤷‍♀️</h1>

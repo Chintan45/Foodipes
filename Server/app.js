@@ -1,5 +1,6 @@
 const express = require("express");
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const cors = require('cors');
 const port = process.env.PORT || 5000;
 const env = require('dotenv');
 env.config();
@@ -10,14 +11,13 @@ const bookRoutes = require("./routes/bookRoutes");
 const userRoutes = require("./routes/userRoutes");
 
 const app = express();
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+
+const corsOptions = {
+  origin: "*",
+  optionsSuccessStatus: 200 
+};
+
+app.use(cors(corsOptions))
 app.use(express.json());
 
 app.get("/", (req, res) => {

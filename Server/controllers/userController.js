@@ -10,9 +10,10 @@ const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body
         const user = await UserModel.login(email, password)
+        const name = user?.name
 
         const token = createToken(user._id)
-        return res.status(200).json({ email, token })
+        return res.status(200).json({ email, name, token })
     } catch (err) {
         console.error(err)
         return res.status(400).json({ status: 'error', message: err.message })
@@ -21,11 +22,11 @@ const loginUser = async (req, res) => {
 
 const signupUser = async (req, res) => {
     try {
-        const { email, password } = req.body
-        const user = await UserModel.signup(email, password)
+        const { email, name, password } = req.body
+        const user = await UserModel.signup(name, email, password)
 
         const token = createToken(user._id)
-        return res.status(200).json({ email, token })
+        return res.status(200).json({ email, name, token })
     } catch (err) {
         console.error(err)
         return res.status(400).json({ status: 'error', message: err.message })

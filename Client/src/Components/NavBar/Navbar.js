@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-
+import { useLogout } from '../../hooks/useLogout'
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 import './Styles/navbar.css';
 
 const Navbar = ({ active, setActive }) => {
-
     const [click, setClick] = useState(false);
+    const { logout } = useLogout();
+    const { user } = useAuthContext()
 
     const handleClick = () => {
         setClick(!click);
@@ -39,8 +41,18 @@ const Navbar = ({ active, setActive }) => {
                 </ul>
             </div>
             <div className={click ? "btn-container" : "btn-container hide"} >
-                <Link to="/login"><button className="login-btn" onClick={() => { setActive('login'); setClick(!click) }}>Login</button></Link>
-                <Link to="/signup"><button className="signup-btn" onClick={() => { setActive('signup'); setClick(!click) }}>Sign Up</button></Link>
+                {user && (
+                    <>
+                        <span style={{marginRight: 10}}>Hi, {user.name} !</span>
+                        <Link to="/"><button className="signup-btn" onClick={() => logout()}>Logout</button></Link>
+                    </>
+                )}
+                {!user && (
+                    <>
+                        <Link to="/login"><button className="login-btn" onClick={() => { setActive('login'); setClick(!click) }}>Login</button></Link>
+                        <Link to="/signup"><button className="signup-btn" onClick={() => { setActive('signup'); setClick(!click) }}>Sign Up</button></Link>
+                    </>
+                )}
             </div>
         </div>
     );

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Card, CardMedia, Divider, Grid, Stack, Typography } from "@mui/material";
 import axios from 'axios';
+import { useAuthContext } from '../../../hooks/useAuthContext'
 import pizzaImg from '../../../assets/pizza2.jpg';
 import pastaImg from '../../../assets/pasta2.jpg';
 import cakeImg from '../../../assets/cupcake2.jpg';
@@ -23,8 +24,8 @@ const Post = ({ recipe_name }) => {
 
     const API = process.env.REACT_APP_API;
     const baseURL = `${API}/posts`;
+    const { user } = useAuthContext()
 
-    
     useEffect(() => {
         document.title = `${recipe_name} recipe`.toUpperCase();
         if (recipe_name === "pizza")
@@ -34,22 +35,26 @@ const Post = ({ recipe_name }) => {
         else
             setImgsrc(cakeImg);
         
-        const getPostData = () => {
+        const getPostData = async () => {
             try {
-                axios
-                    .get(baseURL)
-                    .then(res => {
-                        setPostList(res.data);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    })
+                const res = await axios.get(baseURL, { 
+                    headers: {
+                        Authorization: "Bearer " + user?.token,
+                    } 
+                })
+                const data = await res.data
+                if(data){
+                    setPostList(res.data);
+                }
             } catch (e) {
-                console.log(e);
+                console.log(e.response?.data?.message)
             }
         }
-        getPostData();
-    }, [baseURL, recipe_name])
+        if (user?.token) {
+            getPostData();
+        }
+        setLoading(false);
+    }, [baseURL, recipe_name, user?.token])
 
     useEffect(() => {
         if (PostList) {

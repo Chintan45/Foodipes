@@ -1,15 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import { FaFacebook, FaTwitter, FaGoogle } from 'react-icons/fa';
-import { Typography, Tooltip, tooltipClasses, styled, Zoom } from '@mui/material';
-import { Link } from 'react-router-dom';
-
+import { Typography, Tooltip, Zoom, Alert } from '@mui/material';
+import { useLogin } from '../../hooks/useLogin';
 import './Style/AuthStyle.css';
 
 const Login = ({ setActive }) => {
+    const location = useLocation();
+    const { redirectTo } = location?.state || {redirectTo: "/"};
     return (
         <>
             <Paper elevation={3} className='auth_paper' style={{ borderRadius: '8px' }}>
@@ -18,17 +17,6 @@ const Login = ({ setActive }) => {
                         <div className='f_container'>
                             <h2 style={{ marginBottom: '10px', color: 'rgb(255, 144, 163)' }}>Log in to your Account</h2>
                             <hr width="10%" style={{ backgroundColor: "rgb(255, 144, 163)", height: '3px', border: 'none', margin: '10px' }} />
-                            <Stack
-                                direction='row'
-                                divider={<Divider orientation="vertical" flexItem />}
-                                spacing={4}
-                                margin={1}
-                            >
-                                <FaGoogle color='#DB4437' size={24} style={{ cursor: 'pointer' }} />
-                                <FaFacebook color='#4267B2' size={24} style={{ cursor: 'pointer' }} />
-                                <FaTwitter color='#1DA1F2' size={24} style={{ cursor: 'pointer' }} />
-                            </Stack>
-                            <Typography color='textSecondary' margin={1} variant="caption">or use your email account</Typography>
                             <FormComponent />
                         </div>
                     </Grid>
@@ -38,7 +26,7 @@ const Login = ({ setActive }) => {
                             <Typography variant="body2" className="s_typography" >
                                 Fill up personal information and start journey with us.
                             </Typography>
-                            <Link to="/signup">
+                            <Link to={{ pathname: '/signup', state: { redirectTo } }}>
                                 <input type='submit' value="Create Account" className='submit' onClick={() => (setActive('signup'))} />
                             </Link>
                         </div>
@@ -52,26 +40,27 @@ const Login = ({ setActive }) => {
 export default Login;
 
 const FormComponent = () => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const { login, isLoading, error } = useLogin()
 
-    const HtmlTooltip = styled(({ className, ...props }) => (
-        <Tooltip {...props} classes={{ popper: className }} />
-    ))(({ theme }) => ({
-        [`& .${tooltipClasses.tooltip}`]: {
-            maxWidth: 300,
-            fontSize: theme.typography.pxToRem(12)
-        },
-    }));
+    const location = useLocation();
+    const { redirectTo } = location?.state || {redirectTo: "/"};
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await login(email, password, redirectTo)
+    }
 
     return (
-        <form id='login_form'>
+        <form id='login_form' onSubmit={handleSubmit}>
             <label>Email</label>
-            <input type="email" name="email" placeholder='Enter email address' className='input_box' />
+            <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Enter email address' className='input_box' />
             <br />
+
             <label>Password</label>
-            <HtmlTooltip TransitionComponent={Zoom}
+            <Tooltip TransitionComponent={Zoom}
                 title={
-                    <React.Fragment>
                         <pre> Your password must:<br />
                             &#8194; Be at least 8 characters<br />
                             &#8194; Have at least one number<br />
@@ -79,13 +68,12 @@ const FormComponent = () => {
                             &#8194; Have at least one upper case letter<br />
                             &#8194; Have at least one lower case letter
                         </pre>
-                    </React.Fragment>
                 }
                 placement='right'
                 disableHoverListener
                 arrow>
-                <input type="password" name="password" placeholder='Enter Password ' className='input_box' />
-            </HtmlTooltip>
+                <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Enter Password ' className='input_box' />
+            </Tooltip>
             <Grid container className='b_row'>
                 <Grid item xs={6} >
                     <input type="checkbox" /><label>Remeber me</label>
@@ -94,7 +82,9 @@ const FormComponent = () => {
                     <div style={{ textAlign: 'right' }}><label style={{ cursor: 'pointer' }}>Forget Password?</label></div>
                 </Grid>
             </Grid>
-            <input type='submit' value="Log in" className='submit' />
+
+            {error && <Alert severity="error" sx={{ mt: 2 }} variant="standard">{error}</Alert>}
+            <button type='submit' className={isLoading ? 'submit-disabled': 'submit'} disabled={isLoading}>Log In </button>
         </form>
     )
 }
