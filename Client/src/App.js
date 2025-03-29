@@ -13,6 +13,9 @@ import Pasta from './Components/Recipes/Post/Pasta';
 import Pizza from './Components/Recipes/Post/Pizza';
 import Cake from './Components/Recipes/Post/Cake';
 import { useAuthContext } from './hooks/useAuthContext';
+import ReactGA from 'react-ga4'
+
+ReactGA.initialize(process.env.REACT_APP_GA_ID)
 
 function App() {
   const [active, setActive] = useState('');

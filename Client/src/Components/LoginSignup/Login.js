@@ -5,10 +5,19 @@ import Grid from '@mui/material/Grid';
 import { Typography, Tooltip, Zoom, Alert } from '@mui/material';
 import { useLogin } from '../../hooks/useLogin';
 import './Style/AuthStyle.css';
+import ReactGA from 'react-ga4'
 
 const Login = ({ setActive }) => {
     const location = useLocation();
     const { redirectTo } = location?.state || {redirectTo: "/"};
+
+    React.useEffect(() => {
+        ReactGA.send({
+            hitType: "pageView",
+            page: window.location.pathname
+        })
+    }, [])
+
     return (
         <>
             <Paper elevation={3} className='auth_paper' style={{ borderRadius: '8px' }}>

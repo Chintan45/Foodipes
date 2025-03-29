@@ -3,10 +3,15 @@
 import { useEffect } from 'react'
 import Post from './Post';
 import './post.css'
+import ReactGA from 'react-ga4'
 
 const Pasta = () => {
     useEffect(() => {
         document.title = "Pasta recipe"
+        ReactGA.send({
+            hitType: "pageView",
+            page: window.location.pathname
+        })
     }, []);
 
 

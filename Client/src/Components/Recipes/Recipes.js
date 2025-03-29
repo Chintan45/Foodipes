@@ -4,11 +4,15 @@ import FilterList from './Filter/FilterList';
 import RecipeList from './RecipeList';
 import SearchBar from './SearchBar';
 import './Styles/recipes.css'
-
+import ReactGA from 'react-ga4'
 const Recipes = () => {
     const [filterType, setFilterType] = useState('all');
     useEffect(() => {
         document.title = 'Explore Recipes';
+        ReactGA.send({
+            hitType: "pageView",
+            page: window.location.pathname
+        })
     }, [])
 
     return (
