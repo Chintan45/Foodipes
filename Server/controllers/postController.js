@@ -11,10 +11,24 @@ const getPosts = async (req, res) => {
 	}
 }
 
+const getPostByURI = async (req, res) => {
+  const postURI = req?.params?.recipeURI; 
+  const postTitle = postURI.split("-").join(" ");
+  
+  try {
+    const post = await PostModel.findOne({ title: postTitle });
+		return res.status(200).json(post);
+  } catch (error) {
+    console.log(error);
+		return res.status(500).json({status: "error", message: error.message});
+  }
+}
+
 const addPost = async (req, res) => {
 	try {
     const post = req.body;
-    const newPost = await PostModel(post);
+    const newPost = new PostModel(post);
+    await newPost.save();
     return res.status(200).json(newPost);
 	} catch (error) {
 		console.error(error);
@@ -48,4 +62,4 @@ const addPostsFromFile = async (req, res) => {
   }
 }
 
-module.exports = { getPosts, addPost, addPostsFromFile }
+module.exports = { getPosts, getPostByURI, addPost, addPostsFromFile }

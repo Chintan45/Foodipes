@@ -1,49 +1,11 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios';
 import RecipeCard from './RecipeCard';
 import Skeleton from '@mui/material/Skeleton';
 
 import './Styles/recipes.css';
 
-const RecipeList = ({ filterType }) => {
+const RecipeList = ({ recipes, isLoading }) => {
 
-    const [CardData, setCardData] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    const API = process.env.REACT_APP_API;
-    const baseURL = `${API}/recipes_data`;
-
-    const filterData = (data, filterType) => {
-        if (filterType === "all") {
-            return data;
-        }
-        return data.filter(li => li.keywords.includes(filterType));
-    }
-
-    
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                await axios
-                    .get(baseURL)
-                    .then(res => {
-                        // console.log(res.data);
-                        let fData = filterData(res.data, filterType)
-                        setCardData(fData);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    })
-            }
-            catch (e) {
-                console.log(e)
-            }
-        }
-        getData();
-    }, [baseURL, filterType]);
-
-
-    if (loading) {
+    if (isLoading) {
         return (
             <div className="list-container">
                 {[...Array(9)].map((e, i) => <RecipeLoading key={i} />)}
@@ -53,8 +15,7 @@ const RecipeList = ({ filterType }) => {
 
     return (
         <div className="list-container">
-
-            {CardData.map((item, index) => {
+            {recipes?.map((item, index) => {
                 return (
                     <RecipeCard
                         url={item.url}
@@ -66,9 +27,7 @@ const RecipeList = ({ filterType }) => {
                     />
                 )
             })}
-
         </div>
-
     );
 
 }

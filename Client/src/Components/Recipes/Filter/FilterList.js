@@ -3,7 +3,7 @@
 import Filter from './Filter'
 import './Styles/filter.css';
 
-const FilterList = ({ setFilterType }) => {
+const FilterList = ({ filterType, setFilterType }) => {
     const clearFilter = () => {
         setFilterType('all')
         document.getElementById("fForm").reset();
@@ -16,9 +16,10 @@ const FilterList = ({ setFilterType }) => {
                 <p className="shortText" onClick={clearFilter}>Clear Filter</p>
             </div>
             <form method='POST' id="fForm" >
-                <Filter filterName="Meal" setFilterType={setFilterType} />
-                <Filter filterName="Popularity" setFilterType={setFilterType} />
-                <Filter filterName="Rating" setFilterType={setFilterType} />
+                <Filter filterName="Breakfast" setFilterType={setFilterType} isSelected={filterType === "Breakfast" }/>
+                <Filter filterName="Lunch / Dinner" setFilterType={setFilterType} isSelected={filterType === "Lunch / Dinner" }/>
+                <Filter filterName="Desserts" setFilterType={setFilterType} isSelected={filterType === "Desserts" }/>
+                <Filter filterName="Vegan" setFilterType={setFilterType} isSelected={filterType === "Vegan" }/>
             </form>
         </div>
     )

@@ -3,7 +3,18 @@ const RecipeModel = require("../models/recipeModel");
 
 const getRecipes = async (req, res) => {
   try {
-    const recipes = await RecipeModel.find().lean();
+    const { query, filter } = req.query;
+    const searchCriteria = {};
+
+    if (query) {
+      searchCriteria.title = { $regex: query, $options: 'i' };
+    }
+
+    if (filter && filter !== 'all') {
+      searchCriteria.keywords = { $regex: filter, $options: 'i' };
+    }
+    
+    const recipes = await RecipeModel.find(searchCriteria).lean();
     return res.status(200).json(recipes);
   } catch (error) {
     console.error(error);

@@ -7,8 +7,9 @@ const TimeSchema = Schema({
   totalTime: { type: String, required: true },
 })
 
-const RecipeSchema = new Schema({
+const PostSchema = new Schema({
     title: { type: String, required: true },
+    imageURL: { type: String, required: true },
     time: { type: TimeSchema, required: true },
     serving: { type: String, required: true },
     author: { type: String, required: true },
@@ -18,12 +19,6 @@ const RecipeSchema = new Schema({
     instructions: { type: [String], required: true },
     notes: { type: [String], default: [] },
     toppings: { type: [String], default: [] }
-})
-
-const PostSchema = new Schema({
-  pizza: { type: RecipeSchema },
-  pasta: { type: RecipeSchema },
-  cupcake: { type: RecipeSchema },
 }, { timestamps: true });
 
 const PostModel = mongoose.model("Post", PostSchema);

@@ -16,7 +16,7 @@ const Pizza = () => {
     }, []);
 
     return (
-        <Post recipe_name="pizza" />
+        <Post recipeURL="Margherita-Pizza" />
     )
 }
 

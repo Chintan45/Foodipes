@@ -83,14 +83,7 @@ const FormComponent = () => {
                 arrow>
                 <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Enter Password ' className='input_box' />
             </Tooltip>
-            <Grid container className='b_row'>
-                <Grid item xs={6} >
-                    <input type="checkbox" /><label>Remeber me</label>
-                </Grid>
-                <Grid item xs={6}>
-                    <div style={{ textAlign: 'right' }}><label style={{ cursor: 'pointer' }}>Forget Password?</label></div>
-                </Grid>
-            </Grid>
+
 
             {error && <Alert severity="error" sx={{ mt: 2 }} variant="standard">{error}</Alert>}
             <button type='submit' className={isLoading ? 'submit-disabled': 'submit'} disabled={isLoading}>Log In </button>

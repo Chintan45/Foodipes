@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Card, CardMedia, Divider, Grid, Stack, Typography } from "@mui/material";
 import axios from 'axios';
 import { useAuthContext } from '../../../hooks/useAuthContext'
-import pizzaImg from '../../../assets/pizza2.jpg';
-import pastaImg from '../../../assets/pasta2.jpg';
-import cakeImg from '../../../assets/cupcake2.jpg';
+
 import './post.css'
 
-const Post = ({ recipe_name }) => {
-    const [PostList, setPostList] = useState(null);
+const Post = (props) => {
+    const { recipeName: recipeURL } = useParams();
+    const recipe_name = recipeURL?.split("-")?.join(" ");
+
+    const [post, setPost] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const [recipeTitle, setRecipeTitle] = useState('');
@@ -23,17 +25,11 @@ const Post = ({ recipe_name }) => {
     const [imgsrc, setImgsrc] = useState('')
 
     const API = process.env.REACT_APP_API;
-    const baseURL = `${API}/posts`;
+    const baseURL = props?.recipeURL ? `${API}/posts/${props?.recipeURL}` : `${API}/posts/${recipeURL}`;
     const { user } = useAuthContext()
 
     useEffect(() => {
         document.title = `${recipe_name} recipe`.toUpperCase();
-        if (recipe_name === "pizza")
-            setImgsrc(pizzaImg);
-        else if (recipe_name === "pasta")
-            setImgsrc(pastaImg);
-        else
-            setImgsrc(cakeImg);
         
         const getPostData = async () => {
             try {
@@ -44,7 +40,7 @@ const Post = ({ recipe_name }) => {
                 })
                 const data = await res.data
                 if(data){
-                    setPostList(res.data);
+                    setPost(res.data);
                 }
             } catch (e) {
                 console.log(e.response?.data?.message)
@@ -57,22 +53,19 @@ const Post = ({ recipe_name }) => {
     }, [baseURL, recipe_name, user?.token])
 
     useEffect(() => {
-        if (PostList) {
-            PostList.forEach((post) => {
-                if(post.hasOwnProperty(recipe_name)){
-                    setRecipeTitle(post[recipe_name]["title"])
-                    setDescription(post[recipe_name]["description"])
-                    setAuthor(post[recipe_name]["author"])
-                    setTime(post[recipe_name]["time"])
-                    setIngredients(post[recipe_name]["ingredients"])
-                    setGarnish(post[recipe_name]["garnish"])
-                    setInstructions(post[recipe_name]["instructions"])
-                    setNotes(post[recipe_name]["Notes"])
-                    setToppings(post[recipe_name]["Toppings"])
-                }
-            })
+        if (post) {
+            setRecipeTitle(post["title"])
+            setDescription(post["description"])
+            setAuthor(post["author"])
+            setTime(post["time"])
+            setIngredients(post["ingredients"])
+            setGarnish(post["garnish"])
+            setInstructions(post["instructions"])
+            setNotes(post["notes"])
+            setToppings(post["toppings"])
+            setImgsrc(post["imageURL"])
         }
-    }, [PostList, recipe_name])
+    }, [post, recipe_name])
 
     if (loading) {
         return <>loading</>
@@ -108,7 +101,6 @@ const Post = ({ recipe_name }) => {
                     <Card elevation={2} sx={{ maxWidth: "400px" }} data-aos="fade-in" data-aos-once="true" data-aos-duration="800">
                         <CardMedia
                             component="img"
-                            height=""
                             src={imgsrc}
                             alt={recipe_name}
                         />
@@ -128,16 +120,40 @@ const Post = ({ recipe_name }) => {
                             <div style={{ padding: "0 20px" }}>
                                 <ol className="circle">
                                     {ingredients?.map((ingredient, key) => {
-                                        return (
-                                            <li key={key}>{ingredient}</li>
-                                        )
+                                        if (ingredient?.startsWith("For")) {
+                                            return (<li key={key}><b>{ingredient}</b></li>)
+                                        } else {
+                                            return (<li key={key}>{ingredient}</li>)
+                                        }
                                     })}
                                 </ol>
                             </div>
                         </Card>
                     </Grid>
-                    {(garnish && garnish.length !== 0) ? (
-                        <Grid item xs={12} md={4} className="garnish_card">
+                    <Grid item xs ={12} md={8}>
+                        <Card sx={{ mb: 3, width: "fit-content" }} data-aos="fade-in" data-aos-once="true" data-aos-duration="1000">
+                            <h4 style={{ paddingLeft: "20px" }}>Instructions</h4>
+                            <Divider />
+                            <div style={{ padding: "20px" }}>
+                                <ol className="circle">
+                                    {instructions?.map((instruction, key) => {
+                                        if (instruction?.startsWith("To")) {
+                                            return <li key={key}><b>{instruction}</b></li>
+                                        } else {
+                                            return <li key={key}>{instruction}</li>
+                                        }
+                                    })}
+                                </ol>
+                            </div>
+                        </Card>
+                    </Grid>
+                </Grid>
+            </Stack>
+            
+            <Stack direction="row" sx={{ mt: 1, mb: 0 }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} md={4} className="garnish_card">
+                        {(garnish && garnish.length !== 0) ? (
                             <Card data-aos="fade-in" data-aos-once="true" data-aos-delay="200" data-aos-duration="1200">
                                 <h4 style={{ paddingLeft: "20px" }}>Garnish</h4>
                                 <Divider />
@@ -149,24 +165,9 @@ const Post = ({ recipe_name }) => {
                                     </ol>
                                 </div>
                             </Card>
-                        </Grid>
-                    ) : (" ")}
-                </Grid>
-            </Stack>
-            <Card sx={{ mb: 3, width: "fit-content" }} data-aos="fade-in" data-aos-once="true" data-aos-duration="1000">
-                <h4 style={{ paddingLeft: "20px" }}>Instructions</h4>
-                <Divider />
-                <div style={{ padding: "20px" }}>
-                    <ol className="circle">
-                        {instructions?.map((instruction, key) => (
-                            <li key={key}>{instruction}</li>
-                        ))}
-                    </ol>
-                </div>
-            </Card>
+                        ) : (" ")}
+                    </Grid>
 
-            <Stack direction="row" sx={{ mt: 1, mb: 0 }}>
-                <Grid container>
                     <Grid item xs={12} md={4}>
                         {(notes && notes?.length !== 0) ? (
                             <Card sx={{ mb: 1, width: "fit-content" }} className="i_card" data-aos="fade-in" data-aos-once="true" data-aos-duration="1000">
@@ -180,8 +181,7 @@ const Post = ({ recipe_name }) => {
                                     </ol>
                                 </div>
                             </Card>
-                        ) : (" ")
-                        }
+                        ) : (" ")}
                     </Grid>
 
                     <Grid item xs={12} md={4}>
